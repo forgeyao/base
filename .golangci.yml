@@ -1,0 +1,75 @@
+version: "2"
+run:
+  tests: false
+linters:
+  default: none
+  enable:
+    - bodyclose
+    - dupl
+    - durationcheck
+    - errcheck
+    - errorlint
+    - exhaustive
+    - goconst
+    - gocritic
+    - gocyclo
+    - gosec
+    - govet
+    - ineffassign
+    - misspell
+    - nolintlint
+    - prealloc
+    - revive
+    - sqlclosecheck
+    - staticcheck
+    - unconvert
+    - unparam
+    - unused
+  settings:
+    revive:
+      rules:
+        - name: var-naming
+          arguments:
+            - - ID
+              - UID
+              - URL
+              - URI
+              - HTTP
+              - JSON
+              - IP
+              - XML
+              - SQL
+              - API
+              - DNS
+              - RAM
+            - []
+            - - upperCaseConst: true
+          disabled: false
+  exclusions:
+    generated: lax
+    presets:
+      - comments
+      - common-false-positives
+      - legacy
+      - std-error-handling
+    rules:
+      - linters:
+          - gosec
+        text: (G101|G107|G401|G501|G502|G503|G505)
+    paths:
+      - .*\_test\.go$
+      - docs
+      - client
+      - third_party$
+      - builtin$
+      - examples$
+issues:
+  max-issues-per-linter: 0
+  max-same-issues: 0
+formatters:
+  exclusions:
+    generated: lax
+    paths:
+      - third_party$
+      - builtin$
+      - examples$

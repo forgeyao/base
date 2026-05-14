@@ -34,6 +34,23 @@ type Validator interface {
 	Validate() error
 }
 
+// JWT defines configuration used by the jwt package.
+type JWT struct {
+	Secret     string `yaml:"secret"`
+	Issuer     string `yaml:"issuer,omitempty"`
+	ExpireDays int    `yaml:"expire_days,omitempty"`
+}
+
+func (c *JWT) Validate() error {
+	if c.Secret == "" {
+		return errors.New("conf.JWT.Secret must provided")
+	}
+	if c.ExpireDays <= 0 {
+		c.ExpireDays = 7
+	}
+	return nil
+}
+
 func (c *Log) Validate() error {
 	// 公共默认值
 	if c.MaxSize <= 0 {

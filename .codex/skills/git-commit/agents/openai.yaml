@@ -1,0 +1,4 @@
+interface:
+  display_name: "Git Commit"
+  short_description: "Create focused, reviewable git commits"
+  default_prompt: "Use $git-commit to inspect my changes, stage the right files, and create a focused commit."
