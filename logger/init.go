@@ -3,8 +3,6 @@ package logger
 import (
 	"time"
 
-	conf "util/config"
-
 	"github.com/DeRuina/timberjack"
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
@@ -16,7 +14,7 @@ var Log *zap.SugaredLogger
 var loggers = map[string]*zap.SugaredLogger{}
 
 // InitLogger 兼容单文件配置。
-func InitLogger(l conf.Log) {
+func InitLogger(l Config) {
 	writer := newWriter(l.Filename, l.MaxSize, l.MaxAge, l.MaxBackups)
 	logger := buildLogger(writer, l.Level, "")
 	Log = logger
@@ -28,7 +26,7 @@ func InitLogger(l conf.Log) {
 
 // InitLoggers 多 logger 初始化，未填写的字段继承 l 中的公共配置。
 // 优先使用 name="" 的 logger 作为全局 Log，否则使用第一个 logger。
-func InitLoggers(l conf.Log) {
+func InitLoggers(l Config) {
 	loggers = map[string]*zap.SugaredLogger{}
 
 	for _, entry := range l.Loggers {
@@ -98,7 +96,7 @@ func Error(format string, v ...interface{}) {
 	}
 }
 
-func loggerNames(entries []conf.LogEntry) []string {
+func loggerNames(entries []Entry) []string {
 	names := make([]string, 0, len(entries))
 	for _, e := range entries {
 		names = append(names, e.Name)

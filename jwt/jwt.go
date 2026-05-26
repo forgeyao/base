@@ -4,8 +4,6 @@ import (
 	"errors"
 	"time"
 
-	conf "util/config"
-
 	gjwt "github.com/golang-jwt/jwt/v5"
 	"github.com/google/uuid"
 )
@@ -31,7 +29,7 @@ type Service struct {
 }
 
 // New returns a JWT service from config.
-func New(cfg conf.JWT) (*Service, error) {
+func New(cfg Config) (*Service, error) {
 	if err := cfg.Validate(); err != nil {
 		return nil, err
 	}

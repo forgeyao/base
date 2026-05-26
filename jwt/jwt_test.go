@@ -5,15 +5,13 @@ import (
 	"testing"
 	"time"
 
-	conf "util/config"
-
 	gjwt "github.com/golang-jwt/jwt/v5"
 )
 
 func newTestService(t *testing.T) *Service {
 	t.Helper()
 
-	svc, err := New(conf.JWT{
+	svc, err := New(Config{
 		Secret:     "secret",
 		Issuer:     "util-test",
 		ExpireDays: 1,

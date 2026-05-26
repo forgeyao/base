@@ -1,9 +1,9 @@
-package config
+package jwt
 
 import "testing"
 
-func TestJWTValidate(t *testing.T) {
-	cfg := JWT{Secret: "secret"}
+func TestConfigValidate(t *testing.T) {
+	cfg := Config{Secret: "secret"}
 	if err := cfg.Validate(); err != nil {
 		t.Fatalf("Validate() error = %v", err)
 	}
@@ -12,8 +12,8 @@ func TestJWTValidate(t *testing.T) {
 	}
 }
 
-func TestJWTValidateRequiresSecret(t *testing.T) {
-	cfg := JWT{}
+func TestConfigValidateRequiresSecret(t *testing.T) {
+	cfg := Config{}
 	if err := cfg.Validate(); err == nil {
 		t.Fatal("Validate() error = nil, want error")
 	}
